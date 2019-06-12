@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.opencv.android.BaseLoaderCallback;
 import org.opencv.android.LoaderCallbackInterface;
@@ -24,6 +25,7 @@ import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfPoint;
 import org.opencv.core.MatOfPoint2f;
+import org.opencv.core.MatOfRect;
 import org.opencv.core.Point;
 import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
@@ -42,7 +44,7 @@ import java.util.List;
  * Created by user on 27-May-19.
  */
 
-public class WatershedActivity extends AppCompatActivity{
+public class Test extends AppCompatActivity{
     protected static final String TAG = null;
 
     private static int RESULT_LOAD_IMAGE = 1;
@@ -119,52 +121,49 @@ public class WatershedActivity extends AppCompatActivity{
             Log.i(TAG, picturePath);
             Mat img= Imgcodecs.imread(picturePath);
 
-            //Utils.bitmapToMat(bmp, img);
-            //Imgproc.cvtColor(img,result,Imgproc.COLOR_BGRA2BGR);
-
-            //result ==> Mat
-//            result=steptowatershed(img);
-            //Imgproc.cvtColor(result, img,Imgproc.COLOR_BGR2BGRA,4);
             result = steptowatershed(img);
 
 //            List<MatOfPoint> contours = new ArrayList<MatOfPoint>();
 //            Mat hierarchy = new Mat();
 //            // find contours:
-//            Imgproc.findContours(img, contours, hierarchy, Imgproc.RETR_TREE,Imgproc.CHAIN_APPROX_SIMPLE);
-//
-//            Imgproc.putText(result, "Result : " +
-//                            contours.size(), new org.opencv.core.Point(0, 300),
-//                    Imgproc.FONT_HERSHEY_SIMPLEX, 2.6f, new Scalar(255, 255, 0));
+//            Imgproc.findContours(result, contours, hierarchy, Imgproc.RETR_TREE,Imgproc.CHAIN_APPROX_SIMPLE);
+
+//            Imgproc.putText(result, "" +
+//                            contours.size(), new org.opencv.core.Point(0, 100),
+//                    Imgproc.FONT_HERSHEY_SIMPLEX, 1f, new Scalar(0, 0, 0),3);
 
             Utils.matToBitmap(result, bmp, true);
             Log.i(TAG, "all okay");
             imageView.setImageBitmap(bmp);
+//            Boolean grayBool = Imgcodecs.imwrite(picturePath + "gray.jpg", result);
+
+            //hough circles
+            Mat circles = new Mat();
+
+            // parameters
+            int iCannyUpperThreshold = 10;
+            int iMinRadius = 0;
+            int iMaxRadius = 70;
+            int iAccumulator = 5;
+
+            Imgproc.HoughCircles(result,circles,Imgproc.CV_HOUGH_GRADIENT,1,result.rows()/8,iCannyUpperThreshold,iAccumulator,iMinRadius,iMaxRadius);
+            Log.i("cccccccccccccccccccccc","cccc "+circles.cols());
+            // draw
+            if (circles.cols() > 0)
+            {
+                Toast.makeText(this, "Coins : " +circles.cols() , Toast.LENGTH_LONG).show();
+//                alertString = "Number of coins detected : " + circles.cols();
+//                displayAlert(alertString);
+            }
+            else
+            {
+                Toast.makeText(this, "No coins found", Toast.LENGTH_LONG).show();
+//                alertString = "No objects detected";
+//                displayAlert(alertString);
+            }
 
         }
     }
-
-//    public Mat Magic(Mat img){
-//        Mat src = new Mat();
-//        Imgproc.cvtColor(img,src,Imgproc.COLOR_BGR2GRAY);
-//
-////        Imgproc.Canny(src, src, 50, 200);
-//        List<MatOfPoint> contours = new ArrayList<MatOfPoint>();
-//        Mat hierarchy = new Mat();
-//        // find contours:
-//        Imgproc.findContours(src, contours, hierarchy, Imgproc.RETR_TREE,Imgproc.CHAIN_APPROX_SIMPLE);
-////        for (int contourIdx = 0; contourIdx < contours.size(); contourIdx++) {
-////            Imgproc.drawContours(src, contours, contourIdx, new Scalar(255, 0, 0), -1);
-////        }
-//        return src;
-//    }
-
-//    public List<MatOfPoint> findContours(Mat img){
-//        List<MatOfPoint> contours = new ArrayList<MatOfPoint>();
-//        Mat hierarchy = new Mat();
-//        // find contours:
-//        Imgproc.findContours(img, contours, hierarchy, Imgproc.RETR_TREE,Imgproc.CHAIN_APPROX_SIMPLE);
-//        return contours;
-//    }
 
 
     public Mat steptowatershed(Mat img)
@@ -173,10 +172,10 @@ public class WatershedActivity extends AppCompatActivity{
         Imgproc.cvtColor(img, threeChannel, Imgproc.COLOR_BGR2GRAY);
         Imgproc.threshold(threeChannel, threeChannel, 120, 255, Imgproc.THRESH_BINARY);
 
-        List<MatOfPoint> contours = new ArrayList<MatOfPoint>();
-        Mat hierarchy = new Mat();
-        // find contours:
-        Imgproc.findContours(threeChannel, contours, hierarchy, Imgproc.RETR_TREE,Imgproc.CHAIN_APPROX_SIMPLE);
+//        List<MatOfPoint> contours = new ArrayList<MatOfPoint>();
+//        Mat hierarchy = new Mat();
+//        // find contours:
+//        Imgproc.findContours(threeChannel, contours, hierarchy, Imgproc.RETR_TREE,Imgproc.CHAIN_APPROX_SIMPLE);
 
         //fg = fore ground
         Mat fg = new Mat(img.size(), CvType.CV_8U);

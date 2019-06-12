@@ -49,22 +49,22 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
         cameraBridgeViewBase.setVisibility(SurfaceView.VISIBLE);
         cameraBridgeViewBase.setCvCameraViewListener(this);
 
-        imgButton = findViewById(R.id.take_picture);
-        imgButton.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
-            @Override
-            public void onClick(View view) {
-                MediaActionSound sound = new MediaActionSound();
-                sound.play(MediaActionSound.SHUTTER_CLICK);
-                Log.i(TAG,"on Button Click");
-                Date sdf = new Date();
-                String currentDateTime = sdf.toString();
-                String fileName = Environment.getExternalStorageDirectory().getPath()+
-                        "/sample_picture"+currentDateTime+".jpeg";
-                cameraBridgeViewBase.takePicture(fileName);
-
-            }
-        });
+//        imgButton = findViewById(R.id.take_picture);
+//        imgButton.setOnClickListener(new View.OnClickListener() {
+//            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+//            @Override
+//            public void onClick(View view) {
+//                MediaActionSound sound = new MediaActionSound();
+//                sound.play(MediaActionSound.SHUTTER_CLICK);
+//                Log.i(TAG,"on Button Click");
+//                Date sdf = new Date();
+//                String currentDateTime = sdf.toString();
+//                String fileName = Environment.getExternalStorageDirectory().getPath()+
+//                        "/sample_picture"+currentDateTime+".jpeg";
+//                cameraBridgeViewBase.takePicture(fileName);
+//
+//            }
+//        });
 
         //part 3 continued
         baseLoaderCallback = new BaseLoaderCallback(this) {
