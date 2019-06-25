@@ -17,11 +17,34 @@
         android:layout_gravity="center"
         android:text="TextView" />
 
-    <Button
-        android:layout_height="wrap_content"
-        android:text="Load Picture"
-        android:layout_width="wrap_content"
-        android:id="@+id/buttonLoadPicture"
+    <RelativeLayout
+        android:layout_width="match_parent"
+
         android:layout_weight="0"
-        android:layout_gravity="center"></Button>
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/buttonLoadPicture"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_gravity="center"
+            android:text="Load Picture"></Button>
+        <Button
+            android:layout_height="wrap_content"
+            android:text="Save Picture"
+            android:layout_width="wrap_content"
+            android:id="@+id/buttonSavePicture"
+            android:layout_toRightOf="@+id/buttonLoadPicture"
+            android:layout_gravity="center"></Button>
+        <Button
+            android:layout_height="wrap_content"
+            android:text="View Picture"
+            android:layout_width="wrap_content"
+            android:id="@+id/buttonViewPicture"
+            android:layout_toRightOf="@+id/buttonSavePicture"
+            android:layout_gravity="center"></Button>
+    </RelativeLayout>
 </LinearLayout>

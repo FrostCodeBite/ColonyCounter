@@ -121,6 +121,7 @@ public class Test extends AppCompatActivity{
             Log.i(TAG, picturePath);
             Mat img= Imgcodecs.imread(picturePath);
 
+
             result = steptowatershed(img);
 
 //            List<MatOfPoint> contours = new ArrayList<MatOfPoint>();
@@ -138,29 +139,29 @@ public class Test extends AppCompatActivity{
 //            Boolean grayBool = Imgcodecs.imwrite(picturePath + "gray.jpg", result);
 
             //hough circles
-            Mat circles = new Mat();
-
-            // parameters
-            int iCannyUpperThreshold = 10;
-            int iMinRadius = 0;
-            int iMaxRadius = 70;
-            int iAccumulator = 5;
-
-            Imgproc.HoughCircles(result,circles,Imgproc.CV_HOUGH_GRADIENT,1,result.rows()/8,iCannyUpperThreshold,iAccumulator,iMinRadius,iMaxRadius);
-            Log.i("cccccccccccccccccccccc","cccc "+circles.cols());
-            // draw
-            if (circles.cols() > 0)
-            {
-                Toast.makeText(this, "Coins : " +circles.cols() , Toast.LENGTH_LONG).show();
-//                alertString = "Number of coins detected : " + circles.cols();
-//                displayAlert(alertString);
-            }
-            else
-            {
-                Toast.makeText(this, "No coins found", Toast.LENGTH_LONG).show();
-//                alertString = "No objects detected";
-//                displayAlert(alertString);
-            }
+//            Mat circles = new Mat();
+//
+//            // parameters
+//            int iCannyUpperThreshold = 10;
+//            int iMinRadius = 0;
+//            int iMaxRadius = 70;
+//            int iAccumulator = 5;
+//
+//            Imgproc.HoughCircles(result,circles,Imgproc.CV_HOUGH_GRADIENT,1,result.rows()/8,iCannyUpperThreshold,iAccumulator,iMinRadius,iMaxRadius);
+//            Log.i("cccccccccccccccccccccc","cccc "+circles.cols());
+//            // draw
+//            if (circles.cols() > 0)
+//            {
+//                Toast.makeText(this, "Coins : " +circles.cols() , Toast.LENGTH_LONG).show();
+////                alertString = "Number of coins detected : " + circles.cols();
+////                displayAlert(alertString);
+//            }
+//            else
+//            {
+//                Toast.makeText(this, "No coins found", Toast.LENGTH_LONG).show();
+////                alertString = "No objects detected";
+////                displayAlert(alertString);
+//            }
 
         }
     }
@@ -170,7 +171,7 @@ public class Test extends AppCompatActivity{
     {
         Mat threeChannel = new Mat();
         Imgproc.cvtColor(img, threeChannel, Imgproc.COLOR_BGR2GRAY);
-        Imgproc.threshold(threeChannel, threeChannel, 120, 255, Imgproc.THRESH_BINARY);
+        Imgproc.threshold(threeChannel, threeChannel, 120, 255, Imgproc.THRESH_BINARY_INV);
 
 //        List<MatOfPoint> contours = new ArrayList<MatOfPoint>();
 //        Mat hierarchy = new Mat();
@@ -184,7 +185,7 @@ public class Test extends AppCompatActivity{
         //bg = background
         Mat bg = new Mat(img.size(),CvType.CV_8U);
         Imgproc.dilate(threeChannel,bg,new Mat());
-        Imgproc.threshold(bg,bg,1, 1,Imgproc.THRESH_BINARY_INV);
+        Imgproc.threshold(bg,bg,1, 1,Imgproc.THRESH_BINARY);
 
         Mat markers = new Mat(img.size(),CvType.CV_8U, new Scalar(0));
         Core.add(fg, bg, markers);
