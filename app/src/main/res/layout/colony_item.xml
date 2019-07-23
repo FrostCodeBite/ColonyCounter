@@ -27,17 +27,17 @@
         android:layout_marginRight="33dp"
         android:layout_marginEnd="33dp" />
 
-    <TextView
-        android:text="Date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/txtDate"
-        android:textSize="17sp"
-        android:textColor="#ce1309"
-        android:textAlignment="center"
-        android:layout_below="@+id/txtColony"
-        android:layout_alignRight="@+id/txtColony"
-        android:layout_alignEnd="@+id/txtColony"
-        android:layout_marginRight="30dp"
-        android:layout_marginEnd="30dp" />
+    <!--<TextView-->
+        <!--android:text="Date"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:id="@+id/txtDate"-->
+        <!--android:textSize="17sp"-->
+        <!--android:textColor="#ce1309"-->
+        <!--android:textAlignment="center"-->
+        <!--android:layout_below="@+id/txtColony"-->
+        <!--android:layout_alignRight="@+id/txtColony"-->
+        <!--android:layout_alignEnd="@+id/txtColony"-->
+        <!--android:layout_marginRight="30dp"-->
+        <!--android:layout_marginEnd="30dp" />-->
 </RelativeLayout>

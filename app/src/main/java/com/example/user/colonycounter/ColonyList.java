@@ -3,7 +3,6 @@ package com.example.user.colonycounter;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -17,7 +16,6 @@ import android.widget.Toast;
 
 import com.example.user.colonycounter.adapter.ColonyListAdapter;
 import com.example.user.colonycounter.model.Colony;
-import com.example.user.colonycounter.sqlite.SQLiteHelper;
 
 import java.util.ArrayList;
 
